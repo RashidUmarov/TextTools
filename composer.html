@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Recompose list</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="composer.css">
+</head>
+<body>
+<div class="header">
+    <div class="inner-header">
+        <div class="logo-container">
+            <h1>Compose list by head</h1>
+        </div>
+      <nav class="navigation">
+      <ul>
+        <li><a href="stats.html">Stats</a></li>
+        <li><a href="sizer.html">Sizer</a></li>
+        <li><a href="link_dropper.html">Dropper</a></li>
+        <li><a href="code_blocks.html">Blocks</a></li>
+        <li><a href="changer.html">Changer</a></li>
+        <li><a href="composer.html">Composer</a></li>
+        <li><a href="cleaner.html">Cleaner</a></li>
+        <li><a href="index.html">About</a></li>
+      </ul>
+      </nav>
+    </div>
+</div>
+<div class="content">
+
+    <h2> Переформатирование списка в несколько списков </h2>
+    <div class="html_container">
+        <div id="left">
+            <textarea id="left_html" class="editor" placeholder="insert HTML" color="black"></textarea>
+        </div>
+        <div id="center">
+            <button id="look-list" class="btn-look">
+            <div class="btn_text">Look for list</div>
+
+
+            </button>
+            <div id="check">
+<!--                 здесь будет помещен результат проверки по кнопке id="look-img"  -->
+            </div>
+
+<!--             этот блок будет показан, если будет найден список -->
+            <div id="rebuild-block">
+                <button id="btn-rebuild" class="btn-look" onclick="composeHTML()">
+                <div class="btn_text">Compose links</div>
+                </button>
+            </div>
+
+        </div>
+        <div id="right">
+            <textarea id="right_html"class="editor" placeholder="Here will be result" color="black"></textarea>
+        </div>
+    </div>
+
+</div>
+<script src="composer.js"></script>
+</body>
+</html>

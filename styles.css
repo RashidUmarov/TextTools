@@ -1,0 +1,133 @@
+/* -----------------------------------------
+   Unified styles.css (merged base and sizer)
+----------------------------------------- */
+
+/* Base reset and box-sizing */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+body {
+  font-family: Arial, sans-serif;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #f8f9fa;
+  color: #333;
+  line-height: 1.5;
+}
+
+/* Header & Navigation */
+.header {
+  background: #101010;
+  padding: 0px 40px;
+}
+.inner-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.logo-container {
+  color: #ffffff;
+  font-size: 1.0em;
+  font-weight: bold;
+  flex: 0 0 400px; /* фиксированная ширина контейнера логотипа */
+}
+
+/* Navigation */
+.navigation {
+  margin-left: auto;
+}
+.navigation ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: 10px;
+  flex-wrap: nowrap;
+}
+.navigation a {
+  display: block;
+  padding: 8px 16px;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 6px;
+  transition: background 0.2s;
+}
+.navigation a:hover {
+  background: #393c5a;
+}
+
+/* Main content container */
+.content {
+  flex: 1;
+  font-size: 16px;
+  padding: 20px;
+}
+
+/* Buttons (unified for look, clean, etc.) */
+.btn-look,
+.btn-clean {
+  display: inline-block;
+  padding: 10px 20px;
+  background: #2b2e4a;
+  color: #ffffff;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 1em;
+  transition: background 0.2s;
+  text-align: center;
+}
+.btn-look:hover,
+.btn-clean:hover {
+  background: #393c5a;
+}
+
+/* Textarea editor styling */
+.editor {
+  flex: 1;
+  width: 100%;
+  min-height: 80px;
+  padding: 15px;
+  font-family: 'Fira Mono', monospace;
+  font-size: 1em;
+  border: 1px solid #bbb;
+  border-radius: 10px;
+  background: #ffffff;
+  resize: vertical;
+  margin-bottom: 0;
+}
+
+/* Layout helpers */
+.html_container_row {
+  display: flex;
+  gap: 20px;
+  width: 100%;
+  min-height: 0;
+  flex: 1;
+}
+
+/* Image preview rows for sizer and changer */
+.img-row {
+  margin-bottom: 12px;
+  padding-bottom: 7px;
+  border-bottom: 1px solid #eee;
+}
+.img-row:last-child {
+  border-bottom: none;
+}
+.img-old,
+.img-new {
+  display: block;
+  margin: 2px 0 2px 20px;
+  font-family: 'Fira Mono', monospace;
+  word-break: break-all;
+}
+.img-label {
+  font-weight: bold;
+}

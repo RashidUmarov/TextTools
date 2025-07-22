@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>HTML Cleaner</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="cleaner.css">
+</head>
+<body>
+<div class="header">
+    <div class="inner-header">
+        <div class="logo-container">
+            <h1>HTML Cleaner</h1>
+        </div>
+      <nav class="navigation">
+      <ul>
+        <li><a href="stats.html">Stats</a></li>
+        <li><a href="sizer.html">Sizer</a></li>
+        <li><a href="link_dropper.html">Dropper</a></li>
+        <li><a href="code_blocks.html">Blocks</a></li>
+        <li><a href="changer.html">Changer</a></li>
+        <li><a href="composer.html">Composer</a></li>
+        <li><a href="cleaner.html">Cleaner</a></li>
+        <li><a href="index.html">About</a></li>
+      </ul>
+      </nav>
+    </div>
+</div>
+<h2> Удаление тегов &lt;div&gt; и &lt;span&gt;, которые не содержат стилей и/или классов</h2>
+<div class="html_container">
+    <div id="sidebar">
+        <div id="sidebar_container">
+            <button id="btn-check" class="btn-clean">
+            <div class="btn_text">Check HTML</div>
+
+
+            </button>
+            <div id="check">
+<!--                 здесь будет помещен результат проверки по кнопке id="btn-check"  -->
+            </div>
+
+<!--             этот блок будет показан, если в html найдены пустые теги -->
+            <div id="clean-block">
+                <button id="clean-span" class="btn-clean" onclick="deleteEmptySpans()">
+                <div class="btn_text">span delete</div>
+                </button>
+
+                <button id="clean-div" class="btn-clean" onclick="deleteEmptyDivs()">
+                <div class="btn_text">div delete</div>
+                </button>
+
+            </div>
+        </div>
+    </div>
+    <div id="cleaner_container">
+        <textarea id="editor" placeholder="insert HTML" color="black" class="editor"></textarea>
+    </div>
+
+</div>
+<script src="cleaner.js"></script>
+</body>
+</html>

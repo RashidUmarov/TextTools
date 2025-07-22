@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Drop tag A in IMG</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="changer.css">
+</head>
+<body>
+<div class="header">
+    <div class="inner-header">
+        <div class="logo-container">
+            <h1>Drop tag A in IMG</h1>
+        </div>
+      <nav class="navigation">
+      <ul>
+        <li><a href="stats.html">Stats</a></li>
+        <li><a href="sizer.html">Sizer</a></li>
+        <li><a href="link_dropper.html">Dropper</a></li>
+        <li><a href="code_blocks.html">Blocks</a></li>
+        <li><a href="changer.html">Changer</a></li>
+        <li><a href="composer.html">Composer</a></li>
+        <li><a href="cleaner.html">Cleaner</a></li>
+        <li><a href="index.html">About</a></li>
+      </ul>
+      </nav>
+    </div>
+</div>
+<div class="content">
+
+    <h2> Удаление вложенных картинок в виде ссылок на картинки (убираем картинки с лупой) </h2>
+    <div class="html_container">
+        <div id="left">
+            <textarea id="left_html" class="editor" placeholder="insert HTML" color="black"></textarea>
+        </div>
+        <div id="center">
+            <button id="look-img-link" class="btn-look-img">
+            <div class="btn_text">Look for <a href=><img ...></a>&lt;a href=&gt;&lt;img ...&gt;&lt;/a&gt;</div>
+
+
+            </button>
+            <div id="check">
+<!--                 здесь будет помещен результат проверки по кнопке id="look-img"  -->
+            </div>
+
+<!--             этот блок будет показан, если в 2-х html будут найдены ссылки на картинки -->
+            <div id="replace-block">
+                <button id="btn-replace" class="btn-look" onclick="transformImagePairs()">
+                <div class="btn_text">Drop Links ></div>
+                </button>
+            </div>
+
+        </div>
+        <div id="right">
+            <textarea id="right_html"class="editor" placeholder="insert HTML" color="black"></textarea>
+        </div>
+    </div>
+
+</div>
+<script src="link_dropper.js"></script>
+</body>
+</html>

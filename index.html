@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>About</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="header">
+    <div class="inner-header">
+        <div class="logo-container">
+            <h1>Справка</h1>
+        </div>
+      <nav class="navigation">
+      <ul>
+        <li><a href="stats.html">Stats</a></li>
+        <li><a href="sizer.html">Sizer</a></li>
+        <li><a href="link_dropper.html">Dropper</a></li>
+        <li><a href="code_blocks.html">Blocks</a></li>
+        <li><a href="changer.html">Changer</a></li>
+        <li><a href="composer.html">Composer</a></li>
+        <li><a href="cleaner.html">Cleaner</a></li>
+        <li><a href="index.html">About</a></li>
+      </ul>
+      </nav>
+    </div>
+</div>
+<div class="content">
+    <h2> Описание </h2>
+
+    <h3>Composer — «Переформатирование списка»</h3>
+    <p>На странице находится два текстовых поля:</p>
+    <ul>
+        <li>
+            <p><b>Левое</b> — ввод исходного HTML со списками;</p>
+        </li>
+        <li>
+            <p><b>Правое</b> — вывод результата.<br>
+                Кнопка <b>Look for list</b> проверяет наличие списков, затем кнопка <b>Compose links</b> запускает
+                функцию composeHTML(), которая разбивает или объединяет списки по заголовкам (реорганизация &lt;ul&gt;/&lt;li&gt;).<br>
+            </p></li>
+    </ul>
+    <div><p><br></p>
+        <h2>Sizer — «Масштабирование картинок»</h2>
+        <p>Позволяет изменить размер всех тегов &lt;img&gt; в HTML-коде на заданный процент.</p>
+        <ul>
+            <li>
+                <p>Поле ввода <b>New size (%)</b> задаёт коэффициент масштабирования.</p>
+            </li>
+            <li>
+                <p>При нажатии <b>Scale and copy →</b> весь блок HTML обрабатывается JavaScript-функцией (встроенный
+                    скрипт), которая пересчитывает атрибуты width/height и выводит обновлённый код в правое поле.<br>
+                    Кроме того, под блоками кода отображается панель с «До»/«После» для каждой найденной картинки.</p>
+            </li>
+        </ul>
+        <p><br></p></div>
+
+    <h3>Changer — «Замена картинок»</h3>
+    <p>Инструмент для массовой замены атрибутов у &lt;img&gt;:</p>
+    <ol>
+        <li>
+            <p><b>Look for img</b> — сканирует левый и правый текст и проверяет наличие картинок.</p>
+        </li>
+        <li>
+            <p><b>Replace SRC</b> — меняет только src у изображений (функция replaceSrcInImg() в changer.js).</p>
+        </li>
+        <li>
+            <p><b>Replace SRC + Width + Hight</b> — одновременно обновляет src, width и height (функция replaceImg()).
+            </p></li>
+    </ol>
+    <div><p><br></p>
+        <h3>Blocks — «Замена блоков кода»</h3>
+        <p>Ищет блоки &lt;pre class="code"&gt;…&lt;/pre&gt; в HTML и заменяет их содержимое по заданному алгоритму.</p>
+        <ul>
+            <li>
+                <p><b>Look for tag pre</b> — проверка наличия таких блоков;</p>
+            </li>
+            <li>
+                <p><b>Replace Code Blocks</b> — выполняет замену через replacePreBlock() в code_blocks.js.</p></li>
+        </ul>
+        <p><br></p>
+        <h3>Cleaner — «Чистка HTML»</h3>
+        <p>Удаляет пустые теги &lt;div&gt; и &lt;span&gt;, не содержащие атрибуты class или style.</p>
+        <ul>
+            <li>
+                <p><b>Check HTML</b> — определяет, есть ли такие теги;</p>
+            </li>
+            <li>
+                <p><b>span delete</b> и <b>div delete</b> — соответственно удаляют пустые &lt;span&gt; и &lt;div&gt;
+                    через функции deleteEmptySpans() и deleteEmptyDivs() в cleaner.js.</p></li>
+        </ul>
+        <p><br></p></div>
+
+</div>
+
+</body>
+</html>

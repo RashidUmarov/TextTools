@@ -1,0 +1,126 @@
+.html_container {
+    display:flex;
+    padding-top:10px;
+    border-radius: 10px;
+    justify-content: center;
+}
+body{
+    background-color:RGB(228,227,234);
+}
+
+
+#left, #right{
+    display:flex;
+    padding: 10px;
+    //background-color:white;
+    margin: 10px;
+    min-height: max(300px, 60vh);
+    border-radius: 3px;
+    width: 100%;
+}
+#center{
+    display: block;
+    background-color:white;
+    justify-content: center;
+    min-width: 300px;
+    padding: 10px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    /*min-height: max(300px, 60vh);*/
+    border-radius: 5px;
+}
+
+textarea.editor{
+    height:100%;
+    width:100%;
+    margin: auto;
+}
+
+.btn_text {
+  margin-right: 10px;
+}
+
+
+#check{
+    padding: 5px;
+    display: none;
+    background-color: RGB(255,252,204);
+    border-width: 1px;
+    border-radius: 3px;
+    margin: 10px auto;
+}
+
+ol{
+    padding-left: 25px;
+    margin: 0px;
+}
+
+li{
+    margin-left: 0px;
+    margin-top: 3px;
+    margin-bottom: 8px;
+}
+
+#replace-block{
+    display: none;
+}
+
+#replace-img-block{
+    display: none;
+}
+
+.btn-look {
+  padding: 0;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+  box-shadow: none;
+  cursor: pointer;
+
+  display: flex;
+  width: 130px;
+  margin: 5px 10px;
+  padding: 10px 15px;
+  border-radius: 3px;
+  font-size: 12px;
+  line-height: 15px;
+  text-transform: uppercase;
+  color: white;
+  background: #8C9ACC;
+  transition: 0.3s;
+}
+
+
+.btn-look-img {
+  padding: 0;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+  box-shadow: none;
+  cursor: pointer;
+
+  display: flex;
+  width: 230px;
+  margin: 5px 10px;
+  padding: 10px 15px;
+  border-radius: 3px;
+  font-size: 12px;
+  line-height: 15px;
+  text-transform: uppercase;
+  color: white;
+  background: #8C9ACC;
+  transition: 0.3s;
+}
+
+
+.btn-look:hover {
+  box-shadow: 0px 2px 8px 2px rgba(141,150,178,.3);
+  transform: scale(1.05);
+}
+
+.btn-look-img:hover {
+  box-shadow: 0px 2px 8px 2px rgba(141,150,178,.3);
+  transform: scale(1.05);
+}

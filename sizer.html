@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Sizer: Масштабирование картинок в HTML</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="sizer.css">
+</head>
+<body>
+<div class="header">
+    <div class="inner-header">
+        <div class="logo-container">
+            <h1>Sizer</h1>
+        </div>
+      <nav class="navigation">
+      <ul>
+        <li><a href="stats.html">Stats</a></li>
+        <li><a href="sizer.html">Sizer</a></li>
+        <li><a href="link_dropper.html">Dropper</a></li>
+        <li><a href="code_blocks.html">Blocks</a></li>
+        <li><a href="changer.html">Changer</a></li>
+        <li><a href="composer.html">Composer</a></li>
+        <li><a href="cleaner.html">Cleaner</a></li>
+        <li><a href="index.html">About</a></li>
+      </ul>
+      </nav>
+    </div>
+</div>
+<div class="content">
+
+    <h2>Масштабирование размеров &lt;img&gt; по HTML-коду</h2>
+
+    <div class="sizer-control-row">
+        <label for="scale-input">New size (%):</label>
+        <input id="scale-input" type="number" min="1" max="200" value="50">
+        <button id="btn-scale-copy" class="btn-look">
+            Scale and copy -->
+        </button>
+    </div>
+
+    <div id="found-images-panel" class="found-images-panel"></div>
+
+    <div class="html_container_row">
+        <textarea id="left_html" class="editor" placeholder="Paste HTML here"></textarea>
+        <textarea id="right_html" class="editor" placeholder="Result will appear here"></textarea>
+    </div>
+
+</div>
+<script>
+// Helper for escaping HTML
+function escapeHTML(html) {
+    return html.replace(/[&<>"']/g, function(m) {
+        return ({
+            '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;'
+        })[m];
+    });
+}
+
+document.getElementById('btn-scale-copy').onclick = function() {
+    const leftHTML = document.getElementById('left_html').value;
+    const scale = parseInt(document.getElementById('scale-input').value, 10) || 50;
+
+    const tempDiv = document.createElement('div');
+    tempDiv.innerHTML = leftHTML;
+
+    const imgs = tempDiv.querySelectorAll('img');
+    let imagesPanel = '';
+    let index = 1;
+
+    imgs.forEach(img => {
+        // Получаем исходный html img
+        const oldImgHTML = img.outerHTML;
+        let w = img.getAttribute('width');
+        let h = img.getAttribute('height');
+        if ((!w || !h) && img.style.width) w = img.style.width.replace('px', '');
+        if ((!h || !w) && img.style.height) h = img.style.height.replace('px', '');
+
+        // Меняем размеры, как и раньше
+        if (w && h) {
+            let newW = Math.round(parseInt(w, 10) * scale / 100);
+            let newH = Math.round(parseInt(h, 10) * scale / 100);
+            img.setAttribute('width', newW);
+            img.setAttribute('height', newH);
+        } else if (w) {
+            let newW = Math.round(parseInt(w, 10) * scale / 100);
+            img.setAttribute('width', newW);
+            img.removeAttribute('height');
+        } else if (h) {
+            let newH = Math.round(parseInt(h, 10) * scale / 100);
+            img.setAttribute('height', newH);
+            img.removeAttribute('width');
+        } else {
+            img.style.width = scale + '%';
+            img.style.height = 'auto';
+        }
+
+        // Получаем новый html img
+        const newImgHTML = img.outerHTML;
+
+        // Добавляем в панель
+        imagesPanel += `<div class="img-row">
+            <span class="img-label">Image ${index}:</span>
+            <span class="img-old"><b>Before:</b> <code>${escapeHTML(oldImgHTML)}</code></span>
+            <span class="img-new"><b>After:</b> <code>${escapeHTML(newImgHTML)}</code></span>
+        </div>`;
+        index++;
+    });
+
+    document.getElementById('right_html').value = tempDiv.innerHTML;
+    document.getElementById('found-images-panel').innerHTML = imagesPanel || '<em>No images found.</em>';
+};
+</script>
+</body>
+</html>

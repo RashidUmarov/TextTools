@@ -1,0 +1,75 @@
+/* stats.css — стили для страницы статистики */
+
+/* Зона перетаскивания */
+#drop_zone {
+  width: 300px;
+  height: 100px;
+  border: 3px dashed #cccccc;
+  border-radius: 10px;
+  text-align: center;
+  color: #999;
+  font-family: sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 10px auto;
+  transition: border-color 0.2s, background-color 0.2s;
+}
+#drop_zone.hover {
+  border-color: #333;
+  color: #333;
+  background-color: #f0f0f0;
+}
+
+/* Контейнер с содержимым файла */
+#file_contents {
+  width: 100%;
+  max-height: 300px;
+  margin: 0 auto 20px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  background: #fff;
+  white-space: pre-wrap;
+  font-family: monospace;
+  overflow: auto;
+  resize: vertical;
+  box-sizing: border-box;
+  border-radius: 8px;
+}
+
+/* Сброс отступов в параграфах внутри #file_contents */
+#file_contents p,
+#file_contents p[style],
+#file_contents p[style*="text-align"],
+#file_contents p[style*="margin"],
+#file_contents p[style*="padding"] {
+  margin: -2px 0 !important;
+  padding: 0 !important;
+  line-height: 1.4em !important;
+}
+#file_contents br {
+  display: none;
+}
+
+/* Блоки с категориями ссылок */
+#link_blocks {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  gap: 10px;
+  margin-top: 20px;
+}
+.styled-block {
+  background: #f6f6fb;
+  border: 1px solid #c5c5da;
+  color: #222;
+  padding: 12px;
+  border-radius: 8px;
+  flex: 1 1 250px;
+  min-width: 250px;
+}
+/* Центральная кнопка сброса */
+#reset_button {
+  display: block;
+  margin: 20px auto;
+}
