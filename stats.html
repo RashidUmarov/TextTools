@@ -33,6 +33,11 @@
     <div id="drop_zone">Перетащите сюда файл</div>
     <div id="file_contents">Здесь появится содержимое файла…</div>
     <div id="link_blocks"></div>
+    <!-- Блок для статистики кириллицы -->
+    <div id="cyrillic_stats" style="margin-top: 1em;
+                                       padding: 0.5em;
+                                       border: 1px solid #ccc; display:none;
+                                       "></div>
     <button id="reset_button" class="btn-look">Сбросить</button>
   </div>
 
@@ -41,7 +46,9 @@
     const output = document.getElementById('file_contents');
     const resetButton = document.getElementById('reset_button');
     const linkBlocks = document.getElementById('link_blocks');
+    const statsBlock = document.getElementById('cyrillic_stats');
 
+    // Поведение drag & drop
     ['dragenter','dragover','dragleave','drop'].forEach(evt => {
       dropZone.addEventListener(evt, e => e.preventDefault());
       document.body.addEventListener(evt, e => e.preventDefault());
@@ -55,6 +62,21 @@
       dropZone.classList.remove('hover');
       dropZone.textContent = 'Перетащите сюда файл';
     });
+
+    // Функция подсчёта слов и символов на кириллице, исключая блок #announce
+    function calculateCyrillicStats(html) {
+      const doc = new DOMParser().parseFromString(html, 'text/html');
+      // Удаляем блок анонса, если он есть
+      const announceEl = doc.getElementById('announce');
+      if (announceEl) announceEl.remove();
+      // Берём текст всего тела документа без #announce
+      const text = doc.body.textContent || '';
+      // Ищем слова только из кириллицы
+      const matches = text.match(/[А-ЯЁа-яё]+/g) || [];
+      const wordsCount = matches.length;
+      const charsCount = matches.reduce((sum, w) => sum + w.length, 0);
+      return { wordsCount, charsCount };
+    }
 
     dropZone.addEventListener('drop', e => {
       dropZone.classList.remove('hover');
@@ -70,12 +92,24 @@
         const { title, description, announce } = extractArticleInfo(html);
         const links = extractCategoryLinks(html);
 
+        // Вывод заголовка, описания и анонса
         output.innerHTML =
           `<h2>${title}</h2>` +
           `<div class="styled-block"><p>${description}</p></div>` +
           `<div>${announce}</div>`;
 
+        // Отрисовка блоков ссылок
         renderCategoryBlocks('link_blocks', links);
+
+        // Подсчёт и вывод статистики кириллицы, без #announce
+        const stats = calculateCyrillicStats(html);
+        statsBlock.style.display = 'block';
+        statsBlock.innerHTML = `
+          <h3>Статистика кириллических слов</h3>
+          <p>Количество слов: ${stats.wordsCount}</p>
+          <p>Количество символов: ${stats.charsCount}</p>
+        `;
+
         resetButton.style.display = 'block';
       };
       reader.onerror = () => {
@@ -89,6 +123,7 @@
       dropZone.textContent = 'Перетащите сюда файл';
       resetButton.style.display = 'none';
       linkBlocks.innerHTML = '';
+      statsBlock.style.display = 'none';
     });
 
     function extractArticleInfo(html) {
@@ -117,6 +152,7 @@
 
     function renderCategoryBlocks(containerId, categories) {
       const container = document.getElementById(containerId);
+      container.innerHTML = '';
       Object.entries(categories).forEach(([key, links]) => {
         const block = document.createElement('div');
         block.className = 'styled-block';
