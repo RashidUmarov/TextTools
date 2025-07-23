@@ -107,8 +107,9 @@
       anchors.forEach(a => {
         const href = a.getAttribute('href');
         if (/\/articles\//.test(href)) categories.articles.push(href);
-        else if (/\/code\//.test(href)) categories.code.push(href);
+        else if (/\.mql5\.com\/.*\/code/.test(href)) categories.code.push(href);
         else if (/\/docs\//.test(href)) categories.docs.push(href);
+        else if (/metaquotes\.net/.test(href)) categories.metatrader5.push(href);
         else if (/metatrader5\.com/.test(href)) categories.metatrader5.push(href);
       });
       return categories;
