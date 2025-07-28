@@ -64,26 +64,32 @@
     });
 
     /*  формируем таблицу статистики */
-function appendStatsToPage(wordsCount, charsCount, filename) {
-  let wrapper = document.querySelector('.table-wrapper');
-  let table = document.querySelector('table.standart');
+    function appendStatsToPage(wordsCount, charsCount, filename, sizeInBytes) {
+        let wrapper = document.querySelector('.table-wrapper');
+        let table = document.querySelector('table.standart');
 
-  // Найдём контейнер .content (гарантированно есть)
-  const content = document.querySelector('.content');
+        // Найдём контейнер .content (гарантированно есть)
+        const content = document.querySelector('.content');
 
-  // Если таблицы нет — создаём обёртку и таблицу
-  if (!table) {
-    wrapper = document.createElement('div');
-    wrapper.className = 'table-wrapper';
+        // Определение типа файла
+        const ext = filename.split('.').pop().toLowerCase();
+        let fileType = 'OTHER';
+        if (ext === 'html' || ext === 'htm') fileType = 'HTML';
+        else if (ext === 'txt') fileType = 'TXT';
 
-    table = document.createElement('table');
-    table.className = 'standart';
-    table.style.minWidth = '1200px';
-    table.style.width = '100%';
-    table.style.borderCollapse = 'collapse';
+        // Если таблицы нет — создаём обёртку и таблицу
+        if (!table) {
+            wrapper = document.createElement('div');
+            wrapper.className = 'table-wrapper';
 
-    const thead = document.createElement('thead');
-    thead.innerHTML = `
+            table = document.createElement('table');
+            table.className = 'standart';
+            table.style.minWidth = '1200px';
+            table.style.width = '100%';
+            table.style.borderCollapse = 'collapse';
+
+            const thead = document.createElement('thead');
+            thead.innerHTML = `
       <tr>
         <th>#</th>
         <th>Type</th>
@@ -95,36 +101,35 @@ function appendStatsToPage(wordsCount, charsCount, filename) {
         <th>Aver. Length</th>
       </tr>
     `;
-    table.appendChild(thead);
+            table.appendChild(thead);
 
-    const tbody = document.createElement('tbody');
-    table.appendChild(tbody);
+            const tbody = document.createElement('tbody');
+            table.appendChild(tbody);
 
-    wrapper.appendChild(table);
-    content.appendChild(wrapper); // <== ВСТАВЛЯЕМ В content, не в body
-  }
+            wrapper.appendChild(table);
+            content.appendChild(wrapper); // <== ВСТАВЛЯЕМ В content, не в body
+        }
 
-  const tbody = table.querySelector('tbody');
-  const newRow = document.createElement('tr');
-  const index = tbody.querySelectorAll('tr').length + 1;
+        const tbody = table.querySelector('tbody');
+        const newRow = document.createElement('tr');
+        const index = tbody.querySelectorAll('tr').length + 1;
 
-  const pages = (charsCount / 1800).toFixed(2);
-  const averageLength = wordsCount > 0 ? (charsCount / wordsCount).toFixed(1) : '–';
+        const pages = (charsCount / 1800).toFixed(2);
+        const averageLength = wordsCount > 0 ? (charsCount / wordsCount).toFixed(1) : '–';
 
-  newRow.innerHTML = `
+        newRow.innerHTML = `
     <td align="center">${index}</td>
-    <td>HTML</td>
+    <td>${fileType}</td>
     <td>${filename}</td>
-    <td align="center">–</td>
+    <td align="center">${sizeInBytes.toLocaleString()}</td>
     <td align="center">${charsCount.toLocaleString()}</td>
     <td align="center">${wordsCount.toLocaleString()}</td>
     <td align="center">${pages}</td>
     <td align="center">${averageLength}</td>
   `;
 
-  tbody.appendChild(newRow);
-}
-
+        tbody.appendChild(newRow);
+    }
 
 
     // Функция подсчёта слов и символов на кириллице, исключая блок #announce
@@ -150,7 +155,11 @@ function appendStatsToPage(wordsCount, charsCount, filename) {
         const announceEl = doc.getElementById('announce');
         if (announceEl) announceEl.remove();
 
-        // 3. Извлечь текст из body и title
+        // 3. Удаляем все <pre class="code"> и <div class="code">
+        const codeBlocks = doc.querySelectorAll('pre.code, div.code');
+        codeBlocks.forEach(el => el.remove());
+
+        // 4. Извлечь текст из body и title
         const text =
             (doc.title ? doc.title + ' ' : '') +
             (doc.body?.textContent || '');
@@ -158,7 +167,7 @@ function appendStatsToPage(wordsCount, charsCount, filename) {
         console.log('Пример поиска вручную:');
         console.log(text.match(/[а-яА-ЯёЁ]{3,}/g)?.slice(0, 10));
 
-        // 4. Применить регулярку, как в Java-алгоритме
+        // 5. Применить регулярку, как в Java-алгоритме
         /*const rusWordRegex = /\b\w*?[а-яА-ЯёЁ]+?\w*?\b/g;*/
         /*const rusWordRegex = /[а-яА-ЯёЁ]{2,}/g;*/
         const rusWordRegex = /[a-zA-Zа-яА-ЯёЁ0-9_]*[а-яА-ЯёЁ]+[a-zA-Zа-яА-ЯёЁ0-9_]*/g;
@@ -172,6 +181,7 @@ function appendStatsToPage(wordsCount, charsCount, filename) {
         const wordsCount = matches.length;
 
 // Сохраняем все найденные слова в файл RUS_JS_words_<rand>.csv
+        /* закомментируем отладочный блок
         const rand = Math.floor(Math.random() * 100) + 1;
         const filename = `RUS_words_${rand}.csv`;
         const csvContent = "Word\n" + matches.join("\n");
@@ -184,6 +194,8 @@ function appendStatsToPage(wordsCount, charsCount, filename) {
         link.click();
         document.body.removeChild(link);
 
+        закомментируем отладочный блок  */
+
         return {charsCount, wordsCount};
     }
 
@@ -192,6 +204,7 @@ function appendStatsToPage(wordsCount, charsCount, filename) {
         dropZone.classList.remove('hover');
         dropZone.textContent = 'Файл получен!';
         const file = e.dataTransfer.files[0];
+        const fileSize = file.size;
         if (!file || !file.type.match('text.*')) {
             output.textContent = 'Пожалуйста, перетащите текстовый файл.';
             return;
@@ -222,7 +235,7 @@ function appendStatsToPage(wordsCount, charsCount, filename) {
         `;
 
             const filename = file.name;
-            appendStatsToPage(stats.wordsCount, stats.charsCount, filename);
+            appendStatsToPage(stats.wordsCount, stats.charsCount, filename, fileSize);
 
             resetButton.style.display = 'block';
         };
